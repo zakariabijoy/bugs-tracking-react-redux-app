@@ -1,9 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Bugs from './components/bugs';
+import Bugs from './components/Bugs';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
+import BugsList from './components/BugsList';
 
 
 const store = configureStore();
@@ -11,7 +12,7 @@ const store = configureStore();
 function App() {
   return (
     <Provider store={store}>
-      <Bugs />
+      <BugsList />
     </Provider>
 
   );
