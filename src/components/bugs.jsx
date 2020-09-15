@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loadBugs } from "../store/bugs";
+import { loadBugs, resolveBug, getUnresolvedBugs } from "./../store/bugs";
 
 class Bugs extends Component {
   componentDidMount() {
@@ -11,7 +11,12 @@ class Bugs extends Component {
     return (
       <ul>
         {this.props.bugs.map((bug) => (
-          <li key={bug.id}>{bug.description}</li>
+          <li key={bug.id}>
+            {bug.description}
+            <button onClick={() => this.props.resolveBug(bug.id)}>
+              Resolved
+            </button>
+          </li>
         ))}
       </ul>
     );
@@ -20,11 +25,12 @@ class Bugs extends Component {
 
 //Bugs.contextType = StoreContext;
 const mapStateToProps = (state) => ({
-  bugs: state.entities.bugs.list,
+  bugs: getUnresolvedBugs(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadBugs: () => dispatch(loadBugs()),
+  resolveBug: (id) => dispatch(resolveBug(id)),
 });
 
 // container
